@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Dialer</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="title_activity_contact_phones">Contact Phones</string>
+
+    <string name="shared_storage">MyStorage</string>
+
+    <string name="par_id">id</string>
+    <string name="par_name">name</string>
+    <string name="phone_no_prefix">tel:</string>
+    <string name="dial_attempt_count">attemptCount</string>
+    <string name="dial_timeout">dialTimeout</string>
+
+    <string name="title_activity_settings">Settings</string>
+    <string name="text_attempts_prefix">Attempts: </string>
+    <string name="text_dial_timeout_prefix">Timeout (sec.): </string>
+    <string name="calling_phone_no">PHONE_NO</string>
+    <string name="pers_intent">PERSISTENT_INTENT</string>
+    <string name="title_activity_dialer">DialerActivity</string>
+</resources>

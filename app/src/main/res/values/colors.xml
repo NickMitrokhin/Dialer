@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#525B6A</color>
+    <color name="colorPrimaryDark">#48515E</color>
+    <color name="colorAccent">#546173</color>
+    <color name="colorAppBar">#3f4753</color>
+    <color name="colorPopup">#ffffff</color>
+    <color name="colorIndicatorBackLine">#d9d9db</color>
+    <color name="colorIndicatorLine">#578763</color>
+</resources>

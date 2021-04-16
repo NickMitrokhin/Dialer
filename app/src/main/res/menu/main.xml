@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/search_contacts"
+        android:orderInCategory="100"
+        android:title="Search contacts"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/reload_contacts"
+        android:orderInCategory="100"
+        android:title="Reload contacts"
+        app:showAsAction="never" />
+</menu>
