@@ -1,7 +1,7 @@
 package com.mitrokhin.nick.dialer.models;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
 public class SettingsTest {
     @Test
@@ -35,7 +35,7 @@ public class SettingsTest {
 
         assertEquals(10, settings.getPosition());
         assertEquals("test", settings.getSearchValue());
-        assertEquals(true, settings.getVisible());
+        assertTrue(settings.getVisible());
     }
 
     @Test
