@@ -25,8 +25,8 @@ public class ContactPhonesStore extends SharedStore<ContactPhonesSettings> {
     public void setSettings(ContactPhonesSettings settings) {
         SharedPreferences.Editor editor = sharedPref.edit();
 
-        editor.putString(CURRENT_CONTACT_ID, settings.getContactID());
-        editor.putString(CURRENT_CONTACT_NAME, settings.getContactName());
-        editor.commit();
+        editor.putString(CURRENT_CONTACT_ID, settings.getContactID())
+                .putString(CURRENT_CONTACT_NAME, settings.getContactName())
+                .commit();
     }
 }
