@@ -35,8 +35,6 @@ public class SharedStoreTest {
         ContactPhonesStore store = new ContactPhonesStore(sharedPref);
         ContactPhonesSettings settings = store.getSettings();
 
-        verify(sharedPref, times(1)).getString("currentContactID", null);
-        verify(sharedPref, times(1)).getString("currentContactName", null);
         assertEquals("id", settings.getContactID());
         assertEquals("name", settings.getContactName());
     }
@@ -63,9 +61,6 @@ public class SharedStoreTest {
         MainStore store = new MainStore(sharedPref);
         MainViewSettings settings = store.getSettings();
 
-        verify(sharedPref, times(1)).getInt("contactPosition", 0);
-        verify(sharedPref, times(1)).getString("searchExpr", "");
-        verify(sharedPref, times(1)).getBoolean("searchVisible", false);
         assertEquals(10, settings.getPosition());
         assertEquals("test", settings.getSearchValue());
         assertTrue(settings.getVisible());
