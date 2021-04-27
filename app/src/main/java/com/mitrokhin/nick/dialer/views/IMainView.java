@@ -1,6 +1,6 @@
 package com.mitrokhin.nick.dialer.views;
 
-import com.mitrokhin.nick.dialer.infrastructure.ContactItem;
+import com.mitrokhin.nick.dialer.models.ContactItem;
 import com.mitrokhin.nick.dialer.models.MainViewSettings;
 import java.util.List;
 

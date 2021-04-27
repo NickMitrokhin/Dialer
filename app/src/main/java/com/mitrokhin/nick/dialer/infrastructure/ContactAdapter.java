@@ -11,10 +11,13 @@ import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.mitrokhin.nick.dialer.R;
+import com.mitrokhin.nick.dialer.models.ContactItem;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,8 +40,7 @@ public class ContactAdapter extends ArrayAdapter<ContactItem> {
 
     private View createView(ViewGroup parent) {
         LayoutInflater inflater = ((Activity)context).getLayoutInflater();
-        View view = inflater.inflate(layoutResourceId, parent, false);
-        return view;
+        return inflater.inflate(layoutResourceId, parent, false);
     }
 
     protected void bindDataToView(int position, View view) {
@@ -56,7 +58,8 @@ public class ContactAdapter extends ArrayAdapter<ContactItem> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public @NonNull
+    View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View view = convertView;
 
         if(view == null) {
@@ -68,7 +71,7 @@ public class ContactAdapter extends ArrayAdapter<ContactItem> {
     }
 
     @Override
-    public void addAll(Collection<? extends ContactItem> collection) {
+    public void addAll(@NonNull Collection<? extends ContactItem> collection) {
         super.addAll(collection);
         dataItems.addAll(new ArrayList<>(collection));
     }
@@ -80,7 +83,7 @@ public class ContactAdapter extends ArrayAdapter<ContactItem> {
     }
 
     @Override
-    public Filter getFilter() {
+    public @NonNull Filter getFilter() {
         if(filter == null) {
             filter = new ContactFilter();
         }
@@ -90,11 +93,10 @@ public class ContactAdapter extends ArrayAdapter<ContactItem> {
     private class ContactFilter extends Filter {
         private List<ContactItem> getFoundItems(String value) {
             String filterValue = value.toLowerCase();
-            List<ContactItem> result = dataItems.stream()
+
+            return dataItems.stream()
                     .filter(item -> item.getName().toLowerCase().contains(filterValue))
                     .collect(Collectors.toList());
-
-            return result;
         }
 
         @Override

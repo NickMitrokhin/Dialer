@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.LiveData;
 import androidx.annotation.NonNull;
-import com.mitrokhin.nick.dialer.infrastructure.ContactItem;
+
 import com.mitrokhin.nick.dialer.infrastructure.DataProvider;
 
 import java.util.List;

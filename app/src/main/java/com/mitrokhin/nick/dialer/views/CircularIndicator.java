@@ -68,7 +68,7 @@ public class CircularIndicator extends View {
         max = Math.max(min, max);
         min = Math.min(min, temp);
 
-        value = (value > max) ? max : (value < min ? min : value);
+        value = (value > max) ? max : Math.max(value, min);
     }
 
     public void setLineColor(int color) {
@@ -233,19 +233,19 @@ class CircularIndicatorViewInfo {
         int widthWithoutPadding = indicator.getMeasuredWidth() - indicator.getPaddingLeft() - indicator.getPaddingRight(),
                 heightWithoutPadding = indicator.getMeasuredHeight() - indicator.getPaddingTop() - indicator.getPaddingBottom();
         int workingSize = Math.min(widthWithoutPadding, heightWithoutPadding),
-                lineWidthOffset = (int) Math.floor(indicator.getLineWidth() / (double) 2) + 1;
+                lineWidthOffset = (int)Math.floor(indicator.getLineWidth() / (double)2) + 1;
         bounds.set(indicator.getPaddingLeft() + lineWidthOffset, indicator.getPaddingTop() + lineWidthOffset, workingSize - lineWidthOffset, workingSize - lineWidthOffset);
         width = workingSize + indicator.getPaddingLeft() + indicator.getPaddingRight();
         height = workingSize + indicator.getPaddingTop() + indicator.getPaddingBottom();
-        double proportion = (indicator.getValue() - indicator.getMin()) / (double) (indicator.getMax() - indicator.getMin());
-        currentAngle = (int) Math.ceil(proportion * CircularIndicatorViewInfo.MAX_ANGLE);
+        double proportion = (indicator.getValue() - indicator.getMin()) / (double)(indicator.getMax() - indicator.getMin());
+        currentAngle = (int)Math.ceil(proportion * CircularIndicatorViewInfo.MAX_ANGLE);
     }
 
     private void calculateLabelInfo() {
-        int centerY = (int) Math.ceil(bounds.exactCenterY()),
-                centerX = (int) Math.ceil(bounds.exactCenterX()),
-                radius = (int) Math.ceil((bounds.width() - indicator.getLineWidth()) / (double) 2),
-                rectHalfSize = (int) Math.floor(Math.sqrt(Math.pow(radius, 2) * 2) / 2);
+        int centerY = (int)Math.ceil(bounds.exactCenterY()),
+                centerX = (int)Math.ceil(bounds.exactCenterX()),
+                radius = (int)Math.ceil((bounds.width() - indicator.getLineWidth()) / (double)2),
+                rectHalfSize = (int)Math.floor(Math.sqrt(Math.pow(radius, 2) * 2) / 2);
         labelBounds.set(centerX - rectHalfSize, centerY - rectHalfSize, centerX + rectHalfSize, centerY + rectHalfSize);
     }
 
@@ -292,8 +292,8 @@ class CircularIndicatorPainter {
         Rect textBounds = new Rect();
         labelPaint.getTextBounds(text, startPos, charCount, textBounds);
         canvas.drawText(text, startPos, startPos + charCount,
-                (int) Math.floor(labelBounds.exactCenterX() - textBounds.width() / (double) 2),
-                (int) Math.floor(labelBounds.exactCenterY() + (textBounds.height() - textBounds.height() * 0.3) / (double) 2),
+                (int)Math.floor(labelBounds.exactCenterX() - textBounds.width() / (double)2),
+                (int)Math.floor(labelBounds.exactCenterY() + (textBounds.height() - textBounds.height() * 0.3) / (double)2),
                 labelPaint);
 
     }

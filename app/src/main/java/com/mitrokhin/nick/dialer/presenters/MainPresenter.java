@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.mitrokhin.nick.dialer.ContactPhonesActivity;
 import com.mitrokhin.nick.dialer.R;
 import com.mitrokhin.nick.dialer.SettingsActivity;
-import com.mitrokhin.nick.dialer.infrastructure.ContactItem;
+import com.mitrokhin.nick.dialer.models.ContactItem;
 import com.mitrokhin.nick.dialer.models.Contacts;
 import com.mitrokhin.nick.dialer.models.MainViewSettings;
 import com.mitrokhin.nick.dialer.views.IMainView;

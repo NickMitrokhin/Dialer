@@ -1,4 +1,4 @@
-package com.mitrokhin.nick.dialer.infrastructure;
+package com.mitrokhin.nick.dialer.models;
 
 
 public class ContactItem {

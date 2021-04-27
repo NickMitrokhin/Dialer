@@ -20,7 +20,7 @@ import com.mitrokhin.nick.dialer.models.MainViewSettings;
 import com.mitrokhin.nick.dialer.views.AppActivity;
 import com.mitrokhin.nick.dialer.databinding.ActivityMainBinding;
 import com.mitrokhin.nick.dialer.infrastructure.ContactAdapter;
-import com.mitrokhin.nick.dialer.infrastructure.ContactItem;
+import com.mitrokhin.nick.dialer.models.ContactItem;
 import com.mitrokhin.nick.dialer.infrastructure.Permissions;
 import com.mitrokhin.nick.dialer.presenters.MainPresenter;
 import com.mitrokhin.nick.dialer.views.IMainView;
@@ -116,7 +116,7 @@ public class MainActivity extends AppActivity
 
         EditText etSearch = binding.appBar.content.etSearch;
         String searchValue = etSearch.getText().toString();
-        boolean visible = etSearch.getVisibility() == View.VISIBLE ? true : false;
+        boolean visible = etSearch.getVisibility() == View.VISIBLE;
 
         return new MainViewSettings(position, searchValue, visible);
     }
@@ -162,7 +162,6 @@ public class MainActivity extends AppActivity
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -207,13 +206,10 @@ public class MainActivity extends AppActivity
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-        switch(requestCode) {
-            case Permissions.READ_CONTACTS: {
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    presenter.contactListReady();
-                }
-                break;
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if(requestCode == Permissions.READ_CONTACTS) {
+            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                presenter.contactListReady();
             }
         }
     }

@@ -11,6 +11,8 @@ import android.provider.ContactsContract;
 import androidx.annotation.NonNull;
 
 
+import com.mitrokhin.nick.dialer.models.ContactItem;
+
 import java.util.ArrayList;
 import java.util.List;
 
