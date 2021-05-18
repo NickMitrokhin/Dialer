@@ -2,8 +2,8 @@ package com.mitrokhin.nick.dialer.models;
 
 
 public class SettingsViewSettings {
-    private int attemptCount;
-    private int dialTimeout;
+    private final int attemptCount;
+    private final int dialTimeout;
 
     public SettingsViewSettings(int attemptCount, int dialTimeout) {
         this.attemptCount = attemptCount;

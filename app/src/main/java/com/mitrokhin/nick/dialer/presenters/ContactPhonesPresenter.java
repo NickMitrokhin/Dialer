@@ -100,8 +100,8 @@ public class ContactPhonesPresenter extends Presenter<ContactPhonesSettings, ICo
     private boolean permissionsGranted(String[] permissions) {
         boolean result = true;
 
-        for(int i = 0; i < permissions.length; i++) {
-            if(getView().checkPermission(permissions[i]) != PackageManager.PERMISSION_GRANTED) {
+        for(String permission : permissions) {
+            if(getView().checkPermission(permission) != PackageManager.PERMISSION_GRANTED) {
                 result = false;
                 break;
             }
@@ -113,8 +113,8 @@ public class ContactPhonesPresenter extends Presenter<ContactPhonesSettings, ICo
     private boolean isRequestPermissionGranted(int[] grantResults) {
         boolean result = true;
 
-        for(int i = 0; i < grantResults.length; i++) {
-            if(grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+        for(int res : grantResults) {
+            if(res != PackageManager.PERMISSION_GRANTED) {
                 result = false;
                 break;
             }

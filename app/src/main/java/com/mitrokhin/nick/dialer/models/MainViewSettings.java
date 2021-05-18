@@ -2,9 +2,9 @@ package com.mitrokhin.nick.dialer.models;
 
 
 public class MainViewSettings {
-    private int position;
-    private String searchValue;
-    private boolean visible;
+    private final int position;
+    private final String searchValue;
+    private final boolean visible;
 
     public MainViewSettings(int position, String searchValue, boolean visible) {
         this.position = position;

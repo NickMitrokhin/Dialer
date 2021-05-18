@@ -18,6 +18,7 @@ public abstract class Presenter<T, U extends IExtView<T>> {
         return null;
     }
 
+    @SuppressWarnings("unchecked")
     protected U getView() {
         return (U)view;
     }

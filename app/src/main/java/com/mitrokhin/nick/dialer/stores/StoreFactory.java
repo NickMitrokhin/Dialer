@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 
 public class StoreFactory {
+    @SuppressWarnings("unchecked")
     public static <T> IStore<T> createShared(Class<T> settingsClass, SharedPreferences sharedPref, String... args) {
         String className = settingsClass.getSimpleName();
         IStore<T> result = null;
@@ -29,15 +30,13 @@ public class StoreFactory {
         return result;
     }
 
+    @SuppressWarnings("unchecked")
     public static<T> IStore<T> createBundle(Class<T> settingsClass, Bundle bundle) {
         String className = settingsClass.getSimpleName();
         IStore<T> result = null;
 
-        switch(className) {
-            case "DialerViewBundleSettings": {
-                result = (IStore<T>)(new DialerBundleStore(bundle));
-                break;
-            }
+        if(className.equals("DialerViewBundleSettings")) {
+            result = (IStore<T>)(new DialerBundleStore(bundle));
         }
 
         return result;

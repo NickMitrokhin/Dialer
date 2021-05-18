@@ -18,7 +18,7 @@ import java.util.List;
 
 
 public final class DataProvider {
-    private Context context;
+    private final Context context;
 
     public DataProvider(@NonNull Context context) {
         this.context = context;
@@ -30,7 +30,7 @@ public final class DataProvider {
                 null, null, null,
                 ContactsContract.Contacts.DISPLAY_NAME + " ASC");
         ArrayList<ContactItem> result = new ArrayList<>();
-        if(curContacts.getCount() > 0) {
+        if(curContacts != null) {
             while(curContacts.moveToNext()) {
                 String contactID = curContacts.getString(curContacts.getColumnIndex(ContactsContract.Contacts._ID));
                 String contactName = curContacts.getString(curContacts.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
@@ -40,8 +40,9 @@ public final class DataProvider {
                     result.add(new ContactItem(contactID, contactName));
                 }
             }
+            curContacts.close();
         }
-        curContacts.close();
+
         return result;
     }
 
@@ -69,7 +70,7 @@ public final class DataProvider {
     }
 
     private static String getSanitizedPhoneNumber(String phoneNo) {
-        return phoneNo != null ? phoneNo.replaceAll("[()-]", "").replace(" ", "") : phoneNo;
+        return phoneNo != null ? phoneNo.replaceAll("[()-]", "").replace(" ", "") : null;
     }
 
     public List<String> getPhonesByContactID(String contactID) {
@@ -79,13 +80,16 @@ public final class DataProvider {
                 null,
                 ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
                 new String[] { contactID }, null);
-        while(curPhones.moveToNext()) {
-            String phoneNo = getSanitizedPhoneNumber(curPhones.getString(curPhones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));
-            if(!result.contains(phoneNo)) {
-                result.add(phoneNo);
+        if(curPhones != null) {
+            while(curPhones.moveToNext()) {
+                String phoneNo = getSanitizedPhoneNumber(curPhones.getString(curPhones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)));
+                if(!result.contains(phoneNo)) {
+                    result.add(phoneNo);
+                }
             }
+            curPhones.close();
         }
-        curPhones.close();
+
         return result;
     }
 }

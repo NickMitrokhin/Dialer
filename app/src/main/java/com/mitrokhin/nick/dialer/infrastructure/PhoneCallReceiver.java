@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.provider.CallLog;
 import android.telephony.TelephonyManager;
-import android.util.Log;
+//import android.util.Log;
 
 import java.util.Date;
 
@@ -21,7 +21,7 @@ public class PhoneCallReceiver extends BroadcastReceiver {
         IDLE, OUTGOING, INCOMING, OUT_ENDED, IN_ENDED, ACCEPTED
     }
 
-    private String phoneNumber;
+    private final String phoneNumber;
     private long startPhoneCallTime = 0;
     private PhoneCallStatus phoneCallStatus = PhoneCallStatus.IDLE;
     private Context context;
@@ -53,37 +53,47 @@ public class PhoneCallReceiver extends BroadcastReceiver {
 
     private void receiveCore(Intent intent) {
         String currentAction = intent.getAction();
+
+        if(currentAction == null) {
+            return;
+        }
+
         if(currentAction.equals(Intent.ACTION_NEW_OUTGOING_CALL)) {
-            Log.i("dialer", "new outgoing");
+            //Log.i("dialer", "new outgoing");
             String callingNumber = intent.getStringExtra(Intent.EXTRA_PHONE_NUMBER);//"*100#";
-            if(callingNumber.equals(phoneNumber)) {
-                Log.i("dialer", "outgoing number");
+            if(callingNumber != null && callingNumber.equals(phoneNumber)) {
+                //Log.i("dialer", "outgoing number");
                 phoneCallStatus = PhoneCallStatus.OUTGOING;
             }
             return;
         }
         if(currentAction.equals(TelephonyManager.ACTION_PHONE_STATE_CHANGED)) {
             String state = intent.getStringExtra(TelephonyManager.EXTRA_STATE);
+
+            if(state == null) {
+                return;
+            }
+
             if(state.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
-                Log.i("dialer", "ringing");
+                //Log.i("dialer", "ringing");
                 String incomingNo = intent.getStringExtra(TelephonyManager.EXTRA_INCOMING_NUMBER);
-                if(phoneCallStatus != PhoneCallStatus.OUTGOING && incomingNo.equals(phoneNumber)) {
+                if(phoneCallStatus != PhoneCallStatus.OUTGOING && incomingNo != null && incomingNo.equals(phoneNumber)) {
                     phoneCallStatus = PhoneCallStatus.INCOMING;
                     fireStatusChange();
                 }
             } else if(state.equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) {
-                Log.i("dialer", "offhook");
+                //Log.i("dialer", "offhook");
                 if(phoneCallStatus == PhoneCallStatus.INCOMING) {
                     phoneCallStatus = PhoneCallStatus.ACCEPTED;
                     fireStatusChange();
                 }
             } else if(state.equals(TelephonyManager.EXTRA_STATE_IDLE)) {
                 if(phoneCallStatus == PhoneCallStatus.INCOMING) {
-                    Log.i("dialer", "idle incoming");
+                    //Log.i("dialer", "idle incoming");
                     phoneCallStatus = PhoneCallStatus.IN_ENDED;
                     fireStatusChange();
                 } else if(phoneCallStatus == PhoneCallStatus.OUTGOING) {
-                    Log.i("dialer", "idle outgoing");
+                    //Log.i("dialer", "idle outgoing");
                     phoneCallStatus = PhoneCallStatus.OUT_ENDED;
                     fireStatusChange();
                 }
@@ -118,10 +128,10 @@ public class PhoneCallReceiver extends BroadcastReceiver {
 }
 
 class PhoneCallInfoProvider {
-    private Context context;
-    private String phoneNumber;
-    private PhoneCallReceiver.PhoneCallStatus phoneCallStatus;
-    private long startPhoneCallTime;
+    private final Context context;
+    private final String phoneNumber;
+    private final PhoneCallReceiver.PhoneCallStatus phoneCallStatus;
+    private final long startPhoneCallTime;
 
     PhoneCallInfoProvider(Context context, String phoneNumber, PhoneCallReceiver.PhoneCallStatus phoneCallStatus, long startPhoneCallTime) {
         this.context = context;
@@ -133,7 +143,7 @@ class PhoneCallInfoProvider {
     private String getFilterExpression() {
         return CallLog.Calls.TYPE + "=" + (phoneCallStatus == PhoneCallReceiver.PhoneCallStatus.OUT_ENDED ? CallLog.Calls.OUTGOING_TYPE : CallLog.Calls.INCOMING_TYPE) +
                 " and " + CallLog.Calls.NUMBER + "='" + phoneNumber + "'" +
-                " and " + CallLog.Calls.DATE + ">=" + String.valueOf(startPhoneCallTime);
+                " and " + CallLog.Calls.DATE + ">=" + startPhoneCallTime;
     }
 
     @SuppressLint("MissingPermission")

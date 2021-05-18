@@ -10,7 +10,7 @@ import com.mitrokhin.nick.dialer.mocks.SpannedStringMock;
 
 
 public class InputFilterMinMaxTest {
-    private InputFilterMinMax input = new InputFilterMinMax(5, 10);
+    private final InputFilterMinMax input = new InputFilterMinMax(5, 10);
 
     @Test
     public void passedFilterTest() {

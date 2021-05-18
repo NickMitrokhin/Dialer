@@ -23,7 +23,7 @@ public class DialerService extends Service
         }
     }
 
-    private IBinder binder;
+    private final IBinder binder;
     private PhoneCallReceiver receiver;
     private String phoneNumber;
     private PendingIntent persistentIntent;

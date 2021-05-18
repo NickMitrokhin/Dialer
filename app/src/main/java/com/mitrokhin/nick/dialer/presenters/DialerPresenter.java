@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.view.View;
 
 import com.mitrokhin.nick.dialer.R;
 import com.mitrokhin.nick.dialer.infrastructure.PhoneCallReceiver;
@@ -18,7 +17,6 @@ import com.mitrokhin.nick.dialer.services.DialerService;
 import com.mitrokhin.nick.dialer.stores.DialerBundleStore;
 import com.mitrokhin.nick.dialer.stores.StoreFactory;
 import com.mitrokhin.nick.dialer.views.IDialerView;
-import com.mitrokhin.nick.dialer.views.ISettingsView;
 
 
 public class DialerPresenter extends Presenter<SettingsViewSettings, IDialerView>
@@ -106,9 +104,7 @@ public class DialerPresenter extends Presenter<SettingsViewSettings, IDialerView
 
     @Override
     protected String[] getSettingsStorageExtraArgs() {
-        String[] result = { getView().getAttemptCountKey(), getView().getDialCountKey() };
-
-        return result;
+        return new String[] { getView().getAttemptCountKey(), getView().getDialCountKey() };
     }
 
     @Override

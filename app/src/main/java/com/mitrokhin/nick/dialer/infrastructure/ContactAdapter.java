@@ -24,11 +24,11 @@ import java.util.stream.Collectors;
 
 
 public class ContactAdapter extends ArrayAdapter<ContactItem> {
-    private Context context;
-    private int layoutResourceId;
-    private List<ContactItem> dataItems;
+    private final Context context;
+    private final int layoutResourceId;
+    private final List<ContactItem> dataItems;
     private ContactFilter filter;
-    private DataProvider dataProvider;
+    private final DataProvider dataProvider;
 
     public ContactAdapter(Context context, int layoutResourceId, List<ContactItem> dataItems) {
         super(context, layoutResourceId, dataItems);
@@ -45,6 +45,11 @@ public class ContactAdapter extends ArrayAdapter<ContactItem> {
 
     protected void bindDataToView(int position, View view) {
         ContactItem contact = getItem(position);
+
+        if(contact == null) {
+            return;
+        }
+        
         TextView txtContactName = view.findViewById(R.id.txtContactName);
         ImageView ivContactPhoto = view.findViewById(R.id.ivContactPhoto);
 
@@ -109,6 +114,7 @@ public class ContactAdapter extends ArrayAdapter<ContactItem> {
             return result;
         }
 
+        @SuppressWarnings("unchecked")
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
             clear();

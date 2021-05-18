@@ -36,7 +36,7 @@ public class MainPresenter extends Presenter<MainViewSettings, IMainView> {
         try {
             Context context = view.getViewContext();
             PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-            result = packageInfo.versionName + "." + Integer.toString(packageInfo.versionCode);
+            result = packageInfo.versionName + "." + packageInfo.versionCode;
 
         } catch(Exception err) {
         }
@@ -82,17 +82,12 @@ public class MainPresenter extends Presenter<MainViewSettings, IMainView> {
     public boolean navigationItemSelected(int itemId) {
         IMainView currentView = getView();
 
-        switch(itemId) {
-            case R.id.nav_settings: {
-                Context context = currentView.getViewContext();
-                Intent intent = new Intent(context, SettingsActivity.class);
-                context.startActivity(intent);
-                break;
-            }
-            case R.id.nav_exit: {
-                currentView.exit();
-                break;
-            }
+        if(itemId == R.id.nav_settings) {
+            Context context = currentView.getViewContext();
+            Intent intent = new Intent(context, SettingsActivity.class);
+            context.startActivity(intent);
+        } else if(itemId == R.id.nav_exit) {
+            currentView.exit();
         }
 
         currentView.closeNavigationMenu();
@@ -100,15 +95,10 @@ public class MainPresenter extends Presenter<MainViewSettings, IMainView> {
     }
 
     public void menuItemSelected(int itemId) {
-        switch(itemId) {
-            case R.id.search_contacts: {
-                getView().updateSearchEditor();
-                break;
-            }
-            case R.id.reload_contacts: {
-                loadItems(false);
-                break;
-            }
+        if(itemId == R.id.search_contacts) {
+            getView().updateSearchEditor();
+        } else if(itemId == R.id.reload_contacts) {
+            loadItems(false);
         }
     }
 

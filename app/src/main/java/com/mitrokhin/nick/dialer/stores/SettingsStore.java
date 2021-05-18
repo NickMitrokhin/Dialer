@@ -8,8 +8,8 @@ import com.mitrokhin.nick.dialer.models.SettingsViewSettings;
 
 
 public class SettingsStore extends SharedStore<SettingsViewSettings> {
-    private String attemptCountKey;
-    private String dialTimeoutKey;
+    private final String attemptCountKey;
+    private final String dialTimeoutKey;
 
     public SettingsStore(SharedPreferences sharedPref, @NonNull String... args) {
         super(sharedPref);

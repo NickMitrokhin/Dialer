@@ -2,8 +2,8 @@ package com.mitrokhin.nick.dialer.models;
 
 
 public class ContactPhonesSettings {
-    private String contactID;
-    private String contactName;
+    private final String contactID;
+    private final String contactName;
 
     public ContactPhonesSettings(String contactID, String contactName) {
         this.contactID = contactID;

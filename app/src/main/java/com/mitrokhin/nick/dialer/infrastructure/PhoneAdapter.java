@@ -1,5 +1,6 @@
 package com.mitrokhin.nick.dialer.infrastructure;
 
+import androidx.annotation.NonNull;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,8 +16,8 @@ import java.util.List;
 
 
 public class PhoneAdapter extends ArrayAdapter<String> {
-    private Context context;
-    private int layoutResourceId;
+    private final Context context;
+    private final int layoutResourceId;
 
     public PhoneAdapter(Context context, int layoutResourceId, List<String> dataItems) {
         super(context, layoutResourceId, dataItems);
@@ -25,15 +26,15 @@ public class PhoneAdapter extends ArrayAdapter<String> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public  @NonNull View getView(int position, View convertView, @NonNull ViewGroup parent) {
         View row = convertView;
         PhoneItemHolder holder;
         if(row == null) {
             LayoutInflater inflater = ((Activity)context).getLayoutInflater();
             row = inflater.inflate(layoutResourceId, parent, false);
             holder = new PhoneItemHolder();
-            holder.txtPhoneNumber = (TextView)row.findViewById(R.id.txtPhoneNumber);
-            holder.ivPhoneImage = (ImageView)row.findViewById(R.id.ivPhoneImage);
+            holder.txtPhoneNumber = row.findViewById(R.id.txtPhoneNumber);
+            holder.ivPhoneImage = row.findViewById(R.id.ivPhoneImage);
             row.setTag(holder);
         } else {
             holder = (PhoneItemHolder)row.getTag();

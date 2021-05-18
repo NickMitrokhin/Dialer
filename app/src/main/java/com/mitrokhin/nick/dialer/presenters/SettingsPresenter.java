@@ -14,8 +14,7 @@ public class SettingsPresenter extends Presenter<SettingsViewSettings, ISettings
     @Override
     protected String[] getSettingsStorageExtraArgs() {
         ISettingsView currentView = getView();
-        String[] result = { currentView.getAttemptCountKey(), currentView.getDialCountKey() };
 
-        return result;
+        return new String[] { currentView.getAttemptCountKey(), currentView.getDialCountKey() };
     }
 }

@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.app.PendingIntent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import android.view.View;
 
@@ -38,6 +40,11 @@ public class DialerActivity extends AppActivity
 
     private void initActionBar() {
         ActionBar actionBar = getSupportActionBar();
+
+        if(actionBar == null) {
+            return;
+        }
+
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
@@ -102,7 +109,7 @@ public class DialerActivity extends AppActivity
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle savedInstanceState) {
+    protected void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
         presenter.saveCurrentSettings(savedInstanceState);
 
         super.onSaveInstanceState(savedInstanceState);
@@ -119,7 +126,8 @@ public class DialerActivity extends AppActivity
 
     @Override
     public void updateAttempts(int attemptCount) {
-        binding.content.txtAttemptCount.setText(getString(R.string.text_attempts_prefix) + Integer.toString(attemptCount));
+        String txt = getString(R.string.text_attempts_prefix) + attemptCount;
+        binding.content.txtAttemptCount.setText(txt);
     }
 
     @Override

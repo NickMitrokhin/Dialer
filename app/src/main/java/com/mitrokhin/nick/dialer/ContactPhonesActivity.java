@@ -3,6 +3,8 @@ package com.mitrokhin.nick.dialer;
 
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.ActionBar;
@@ -53,6 +55,11 @@ public class ContactPhonesActivity extends AppActivity
 
     private void initActionBar() {
         ActionBar actionBar = getSupportActionBar();
+
+        if(actionBar == null) {
+            return;
+        }
+
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
 
@@ -101,7 +108,7 @@ public class ContactPhonesActivity extends AppActivity
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         presenter.requestPermissionsResult(requestCode, grantResults);
     }
 

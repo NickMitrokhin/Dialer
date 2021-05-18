@@ -10,12 +10,10 @@ public class Timer extends CountDownTimer {
         void onTimerFinished();
     }
 
-    private TimerListener listener;
-    private long startTime;
+    private final TimerListener listener;
 
     public Timer(long startTimeSec, long intervalSec, TimerListener listener) {
         super(startTimeSec * 1000, intervalSec * 1000);
-        this.startTime = startTimeSec;
         this.listener = listener;
     }
 
@@ -27,9 +25,5 @@ public class Timer extends CountDownTimer {
     @Override
     public void onFinish() {
         listener.onTimerFinished();
-    }
-
-    public long getStartTime() {
-        return startTime;
     }
 }

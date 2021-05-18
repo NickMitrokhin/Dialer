@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 public class SettingsTest {
     @Test
-    public void ContactPhonesSettingsTetst() {
+    public void ContactPhonesSettingsTest() {
         ContactPhonesSettings settings = new ContactPhonesSettings("id", "name");
 
         assertEquals("id", settings.getContactID());

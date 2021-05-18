@@ -3,6 +3,8 @@ package com.mitrokhin.nick.dialer;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import com.google.android.material.navigation.NavigationView;
 import androidx.core.app.ActivityCompat;
@@ -98,7 +100,9 @@ public class MainActivity extends AppActivity
     @Override
     public void setAppVersion(String version) {
         TextView titleView = binding.navView.getHeaderView(0).findViewById(R.id.titleView);
-        titleView.setText(titleView.getText() + "  v" + version);
+        String titleText = titleView.getText() + "  v" + version;
+
+        titleView.setText(titleText);
     }
 
     @Override
@@ -206,7 +210,7 @@ public class MainActivity extends AppActivity
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if(requestCode == Permissions.READ_CONTACTS) {
             if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 presenter.contactListReady();
