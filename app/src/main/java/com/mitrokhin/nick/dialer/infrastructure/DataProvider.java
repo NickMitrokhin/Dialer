@@ -56,7 +56,7 @@ public final class DataProvider {
                 null, null, null);
         if(curPhotos != null) {
             try {
-                if(curPhotos.moveToNext()) {
+                if(curPhotos.moveToFirst()) {
                     byte[] photoBytes = curPhotos.getBlob(0);
                     if(photoBytes != null) {
                         result = BitmapFactory.decodeByteArray(photoBytes, 0, photoBytes.length);
