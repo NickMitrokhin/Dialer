@@ -12,11 +12,17 @@ import java.util.List;
 
 
 public class CursorMock implements Cursor {
-    private final Object[][] dataItems;
-    private final String[] dataFields;
+    private Object[][] dataItems;
+    private String[] dataFields;
     private int position = -1;
 
+    public CursorMock() {}
+
     public CursorMock(@NonNull Object[][] dataItems, @NonNull String[] dataFields) {
+        setUp(dataItems, dataFields);
+    }
+
+    public void setUp(@NonNull Object[][] dataItems, @NonNull String[] dataFields) {
         this.dataItems = dataItems;
         this.dataFields = dataFields;
     }
@@ -45,11 +51,22 @@ public class CursorMock implements Cursor {
         return result;
     }
 
+    private Object[] getCurrentRow() {
+        return dataItems[position];
+    }
+
     @Override
     public String getString(int columnIndex) {
-        Object[] row = dataItems[position];
+        return (String)getCurrentRow()[columnIndex];
+    }
 
-        return (String)row[columnIndex];
+    @Override
+    public byte[] getBlob(int columnIndex) {
+/*        Object object = getCurrentRow()[columnIndex];
+        byte[] result = new byte[objects.length];
+        System.arraycopy(objects, 0, result, objects.length);*/
+
+        return (byte[])getCurrentRow()[columnIndex];
     }
 
     @Override
@@ -122,11 +139,6 @@ public class CursorMock implements Cursor {
 
     @Override
     public double getDouble(int columnIndex) {
-        throw new RuntimeException("Stub!");
-    }
-
-    @Override
-    public byte[] getBlob(int columnIndex) {
         throw new RuntimeException("Stub!");
     }
 
@@ -231,7 +243,7 @@ public class CursorMock implements Cursor {
     }
 
     @Override
-    public void setNotificationUris(ContentResolver cr, List<Uri> uris) {
+    public void setNotificationUris(@NonNull ContentResolver cr, @NonNull List<Uri> uris) {
         throw new RuntimeException("Stub!");
     }
 
